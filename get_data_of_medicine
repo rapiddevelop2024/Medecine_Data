@@ -1,0 +1,9 @@
+SELECT  ssi.code,ssi.name,sds.code as db_code ,tsd.format as temp_code
+FROM trm.service_item ssi
+join com.term str on str.id = ssi.term_id
+join com.terminology stg on stg.id = str.terminology_id
+join trm.drug sd on sd.service_item_id = ssi.id
+join trm.drug_shape sds on sds.id = sd.shape_id
+join m_dehghan.temp_salamat_drug14021124 tsd on  ltrim(ssi.code,0) = ltrim(tsd.code_generic,0) and tsd.code_irc = ssi.national_code
+where ssi.disable_date is null and stg.organization_id = 16
+and upper(sds.code) != upper(tsd.format) and sds.id = 405 and tsd.format is null ;
